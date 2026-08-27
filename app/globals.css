@@ -1,0 +1,293 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --shell-pad: clamp(1.25rem, 5vw, 7.5rem);
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+    scroll-padding-top: 96px; /* clear the fixed header on anchor jumps */
+  }
+
+  body {
+    background: #ffffff;
+    color: theme("colors.ink.DEFAULT");
+    font-family: theme("fontFamily.sans");
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: theme("colors.bronze.DEFAULT");
+    color: #fff;
+  }
+}
+
+@layer components {
+  /* Horizontal page gutter used by every section */
+  .shell {
+    width: 100%;
+    max-width: theme("maxWidth.shell");
+    margin-inline: auto;
+    padding-inline: var(--shell-pad);
+  }
+
+  /* Section eyebrow: script accent word + bold condensed heading */
+  .section-title {
+    display: flex;
+    align-items: baseline;
+    gap: 0.3em;
+    line-height: 1;
+  }
+  .section-title .script,
+  .section-title .heading {
+    font-family: theme("fontFamily.sans");
+    color: #0a0a0a;
+    font-size: clamp(2.25rem, 5vw, 4rem);
+    letter-spacing: -0.03em;
+  }
+  .section-title .script {
+    font-weight: 300;
+  }
+  .section-title .heading {
+    font-weight: 700;
+  }
+
+  /* Body copy in the tracked uppercase style the design uses */
+  .copy-caps {
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    line-height: 1.55;
+    color: theme("colors.ink.DEFAULT");
+    font-size: clamp(0.95rem, 1.05vw, 1.125rem);
+  }
+
+  /* Progressive-enhancement scroll reveal (see components/Reveal.tsx) */
+  [data-reveal="off"] {
+    opacity: 1;
+  }
+  [data-reveal]:not([data-reveal="off"]) {
+    opacity: 0;
+    transform: translateY(26px);
+    transition:
+      opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  [data-reveal][data-shown="true"] {
+    opacity: 1;
+    transform: none;
+  }
+  [data-reveal="group"] > * {
+    opacity: 0;
+    transform: translateY(22px);
+    transition:
+      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  [data-reveal="group"][data-shown="true"] > * {
+    opacity: 1;
+    transform: none;
+  }
+  [data-reveal="group"][data-shown="true"] > *:nth-child(2) {
+    transition-delay: 0.1s;
+  }
+  [data-reveal="group"][data-shown="true"] > *:nth-child(3) {
+    transition-delay: 0.2s;
+  }
+  [data-reveal="group"][data-shown="true"] > *:nth-child(4) {
+    transition-delay: 0.3s;
+  }
+
+  /* ---- The Noriek Vision — scroll-driven animation ----
+     Everything is tied to the section's position in the viewport (CSS
+     scroll-driven animations), so it re-plays every single time the section
+     comes back into view. Browsers without `animation-timeline` fall back to
+     older browsers simply render the section static and fully visible. */
+
+  .vision-img,
+  .vision-watermark {
+    will-change: transform, opacity, clip-path;
+  }
+
+  @supports (animation-timeline: view()) {
+    /* pavilion render: quick centre-out wipe on entry, then a slow pan + zoom */
+    .vision-img {
+      animation:
+        vision-img-wipe linear both,
+        vision-img-drift linear both;
+      animation-timeline: view(), view();
+      animation-range: entry 10% entry 90%, entry 0% exit 100%;
+    }
+    @keyframes vision-img-wipe {
+      from {
+        clip-path: inset(0 46% 0 46%);
+        opacity: 0.4;
+      }
+      to {
+        clip-path: inset(0 0 0 0);
+        opacity: 1;
+      }
+    }
+    @keyframes vision-img-drift {
+      from {
+        transform: translateY(-3.5%) scale(1.16);
+      }
+      to {
+        transform: translateY(3.5%) scale(1.08);
+      }
+    }
+
+    /* watermark: rises + fades as the section enters */
+    .vision-watermark {
+      animation: vision-watermark linear both;
+      animation-timeline: view();
+      animation-range: entry 4% cover 42%;
+    }
+    @keyframes vision-watermark {
+      from {
+        opacity: 0;
+        transform: translateY(60px) scale(1.1);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    /* copy: fades up as it arrives */
+    .vision-copy {
+      animation: vision-copy linear both;
+      animation-timeline: view();
+      animation-range: entry 45% cover 65%;
+    }
+    @keyframes vision-copy {
+      from {
+        opacity: 0;
+        transform: translateY(28px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .vision-img,
+    .vision-watermark,
+    .vision-copy {
+      animation: none;
+      transform: none;
+      opacity: 1;
+      clip-path: none;
+    }
+  }
+
+  /* Hero entrance — CSS so it runs regardless of JS/animation state */
+  .hero-rise {
+    opacity: 0;
+    transform: translateY(24px);
+    animation: hero-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay: var(--rise-delay, 0ms);
+  }
+  @keyframes hero-rise {
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  .hero-fade {
+    opacity: 0;
+    animation: hero-fade 0.9s ease forwards;
+    animation-delay: var(--rise-delay, 0ms);
+  }
+  @keyframes hero-fade {
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Scroll indicator dot */
+  .hero-scroll-dot {
+    animation: hero-scroll-dot 2s ease-in-out infinite;
+  }
+  @keyframes hero-scroll-dot {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(28px);
+    }
+  }
+
+  /* Hero parallax — image drifts down + content lifts as you scroll past (scroll-linked) */
+  @supports (animation-timeline: scroll()) {
+    .hero-parallax {
+      animation: hero-parallax linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 100vh;
+    }
+    @keyframes hero-parallax {
+      to {
+        transform: scale(1.12) translateY(11%);
+      }
+    }
+    .hero-parallax-content {
+      animation: hero-parallax-content linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 90vh;
+    }
+    @keyframes hero-parallax-content {
+      to {
+        transform: translateY(26%);
+        opacity: 0.35;
+      }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-rise,
+    .hero-fade {
+      opacity: 1;
+      transform: none;
+      animation: none;
+    }
+    .hero-scroll-dot,
+    .hero-parallax,
+    .hero-parallax-content {
+      animation: none;
+    }
+    /* no autoplaying video — the poster still shows */
+    .hero-parallax video {
+      display: none;
+    }
+  }
+
+  .dropcap::first-letter {
+    font-family: theme("fontFamily.sans");
+    color: #0a0a0a;
+    font-weight: 300;
+    font-size: 2.6em;
+    line-height: 0.72;
+    float: left;
+    margin-right: 0.1em;
+    margin-top: 0.06em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
