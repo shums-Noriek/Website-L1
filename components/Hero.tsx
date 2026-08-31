@@ -39,7 +39,7 @@ export function Hero() {
         </p>
 
         <h1
-          className="hero-rise mt-3 font-light leading-none text-[clamp(2.75rem,13vw,9rem)] tracking-[0.06em] sm:tracking-[0.1em]"
+          className="hero-rise mt-3 font-light uppercase leading-none text-[clamp(2.75rem,13vw,9rem)] tracking-[0.14em] sm:tracking-[0.22em]"
           style={{ ["--rise-delay" as string]: "280ms" }}
         >
           {hero.title}

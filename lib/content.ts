@@ -128,7 +128,7 @@ export const projects = {
   caption: "Build with confidence from the inside out. We manage the critical technical core of your home.",
   items: [
     { name: "Prestige Ferns Residency", image: { src: "/images/project-1.webp", alt: "Dark kitchen with a marble island and cluster of glass pendants" } },
-    { name: "Shobha Daffodil", image: { src: "/images/project-2.webp", alt: "Living room with a curved bouclé sofa beside a linear fireplace" } },
+    { name: "Sobha Daffodil", image: { src: "/images/project-2.webp", alt: "Living room with a curved bouclé sofa beside a linear fireplace" } },
     { name: "La Palazzo", image: { src: "/images/project-3.webp", alt: "Bedroom with fluted walnut headboard wall and warm cove lighting" } },
     { name: "Salarpuria Serenity", image: { src: "/images/project-4.webp", alt: "Bright minimal living room with an olive tree and travertine table" } },
   ],
