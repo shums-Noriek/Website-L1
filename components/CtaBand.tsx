@@ -12,6 +12,7 @@ type Status = "idle" | "submitting" | "done" | "error";
 export function CtaBand() {
   const [status, setStatus] = useState<Status>("idle");
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [contact, setContact] = useState("");
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -19,14 +20,16 @@ export function CtaBand() {
     const fd = new FormData(form);
     const payload = {
       name: String(fd.get("name") ?? "").trim(),
-      contact: String(fd.get("contact") ?? "").trim(),
+      contact: contact.trim(),
       email: String(fd.get("email") ?? "").trim(),
       propertyType: String(fd.get("propertyType") ?? "").trim(),
     };
 
     const localErrors: Record<string, string> = {};
     if (!payload.name) localErrors.name = "Please enter your name";
-    if (!payload.contact) localErrors.contact = "Please enter your contact details";
+    if (!payload.contact) localErrors.contact = "Please enter your contact number";
+    else if (!/^\d{10}$/.test(payload.contact))
+      localErrors.contact = "Enter a valid 10-digit number";
     if (!payload.propertyType) localErrors.propertyType = "Please select a property type";
     if (payload.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email))
       localErrors.email = "Please enter a valid email";
@@ -49,6 +52,7 @@ export function CtaBand() {
         return;
       }
       form.reset();
+      setContact("");
       setStatus("done");
     } catch {
       setStatus("error");
@@ -76,16 +80,29 @@ export function CtaBand() {
           ) : (
             <form onSubmit={onSubmit} noValidate className="mt-8 w-full space-y-4 text-left">
               <div>
-                <input name="name" type="text" placeholder="Name" aria-label="Name" className={fieldClass} />
+                <input
+                  name="name"
+                  type="text"
+                  autoComplete="name"
+                  placeholder="Name*"
+                  aria-label="Name"
+                  aria-required="true"
+                  className={fieldClass}
+                />
                 {errors.name && <p className="mt-1 text-xs font-medium text-white">{errors.name}</p>}
               </div>
               <div>
                 <input
                   name="contact"
-                  type="text"
-                  inputMode="tel"
-                  placeholder="Contact details"
-                  aria-label="Contact details"
+                  type="tel"
+                  inputMode="numeric"
+                  autoComplete="tel"
+                  maxLength={10}
+                  value={contact}
+                  onChange={(e) => setContact(e.target.value.replace(/\D/g, "").slice(0, 10))}
+                  placeholder="Contact number* (10 digits)"
+                  aria-label="Contact number"
+                  aria-required="true"
                   className={fieldClass}
                 />
                 {errors.contact && <p className="mt-1 text-xs font-medium text-white">{errors.contact}</p>}
@@ -94,6 +111,7 @@ export function CtaBand() {
                 <input
                   name="email"
                   type="email"
+                  autoComplete="email"
                   placeholder="Email (optional)"
                   aria-label="Email (optional)"
                   className={fieldClass}
@@ -101,9 +119,15 @@ export function CtaBand() {
                 {errors.email && <p className="mt-1 text-xs font-medium text-white">{errors.email}</p>}
               </div>
               <div>
-                <select name="propertyType" aria-label="Property type" defaultValue="" className={fieldClass}>
+                <select
+                  name="propertyType"
+                  aria-label="Property type"
+                  aria-required="true"
+                  defaultValue=""
+                  className={fieldClass}
+                >
                   <option value="" disabled>
-                    Property type
+                    Property type*
                   </option>
                   {PROPERTY_TYPES.map((t) => (
                     <option key={t} value={t}>
@@ -119,7 +143,7 @@ export function CtaBand() {
               <button
                 type="submit"
                 disabled={status === "submitting"}
-                className="mt-2 inline-flex w-full items-center justify-center rounded-full bg-white px-8 py-4 text-[0.72rem] font-semibold uppercase tracking-nav text-black transition-transform hover:scale-[1.02] disabled:opacity-60 sm:text-sm"
+                className="mt-2 inline-flex w-full items-center justify-center rounded-full bg-white px-8 py-4 text-[0.9rem] font-semibold tracking-[0.02em] text-black transition-transform hover:scale-[1.02] disabled:opacity-60"
               >
                 {status === "submitting" ? "Sending…" : cta.button}
               </button>

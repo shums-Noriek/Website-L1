@@ -57,11 +57,10 @@
     font-weight: 700;
   }
 
-  /* Body copy in the tracked uppercase style the design uses */
+  /* Body copy — sentence case, as authored */
   .copy-caps {
-    text-transform: uppercase;
     letter-spacing: -0.01em;
-    line-height: 1.55;
+    line-height: 1.6;
     color: theme("colors.ink.DEFAULT");
     font-size: clamp(0.95rem, 1.05vw, 1.125rem);
   }

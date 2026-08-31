@@ -42,7 +42,7 @@ export function SiteHeader() {
 
       <nav className="shell relative flex h-[92px] items-center justify-between">
         {/* desktop: left links */}
-        <ul className={`hidden flex-1 items-center gap-8 text-[0.78rem] font-semibold uppercase tracking-nav lg:flex ${linkColor}`}>
+        <ul className={`hidden flex-1 items-center gap-8 text-[0.8rem] font-semibold tracking-[0.06em] lg:flex ${linkColor}`}>
           {nav.left.map((l) => (
             <li key={l.label}>
               <a href={l.href} className="transition-opacity hover:opacity-60">
@@ -64,7 +64,7 @@ export function SiteHeader() {
         </a>
 
         {/* desktop: right links */}
-        <ul className={`hidden flex-1 items-center justify-end gap-8 text-[0.78rem] font-semibold uppercase tracking-nav lg:flex ${linkColor}`}>
+        <ul className={`hidden flex-1 items-center justify-end gap-8 text-[0.8rem] font-semibold tracking-[0.06em] lg:flex ${linkColor}`}>
           {nav.right.map((l) => (
             <li key={l.label}>
               <a href={l.href} className="transition-opacity hover:opacity-60">
@@ -94,7 +94,7 @@ export function SiteHeader() {
           menuOpen ? "pointer-events-auto opacity-100 translate-y-0" : "pointer-events-none -translate-y-3 opacity-0"
         }`}
       >
-        <ul className="flex flex-col gap-6 text-lg font-semibold uppercase tracking-nav text-ink">
+        <ul className="flex flex-col gap-6 text-lg font-semibold tracking-[0.04em] text-ink">
           {allLinks.map((l) => (
             <li key={l.label}>
               <a href={l.href} onClick={() => setMenuOpen(false)}>

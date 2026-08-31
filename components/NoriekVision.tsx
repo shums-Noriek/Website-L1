@@ -21,7 +21,7 @@ export function NoriekVision() {
       <div className="relative mx-auto max-w-shell px-[var(--shell-pad)] text-center">
         {/* heading — rises + fades every time the section scrolls in */}
         <div className="vision-watermark pointer-events-none relative z-0 select-none">
-          <p className="text-[0.7rem] font-semibold uppercase tracking-[0.5em] text-ink/60 md:text-sm">
+          <p className="text-[0.7rem] font-semibold tracking-[0.32em] text-ink/60 md:text-sm">
             {vision.script}
           </p>
           <p className="mt-1 text-[clamp(2.25rem,8vw,6.5rem)] font-bold leading-[0.9] tracking-[-0.04em] text-ink">

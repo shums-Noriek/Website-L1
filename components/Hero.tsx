@@ -32,14 +32,14 @@ export function Hero() {
 
       <div className="hero-parallax-content shell relative z-10 flex h-full flex-col items-center justify-center text-center text-white">
         <p
-          className="hero-rise text-[0.7rem] font-medium uppercase tracking-hero sm:text-sm md:text-base"
+          className="hero-rise text-[0.7rem] font-medium tracking-[0.16em] sm:text-sm md:text-base"
           style={{ ["--rise-delay" as string]: "150ms" }}
         >
           {hero.eyebrow}
         </p>
 
         <h1
-          className="hero-rise mt-3 font-light uppercase leading-none text-[clamp(2.75rem,13vw,9rem)] tracking-[0.14em] sm:tracking-[0.22em]"
+          className="hero-rise mt-3 font-light leading-none text-[clamp(2.75rem,13vw,9rem)] tracking-[0.06em] sm:tracking-[0.1em]"
           style={{ ["--rise-delay" as string]: "280ms" }}
         >
           {hero.title}
@@ -54,10 +54,10 @@ export function Hero() {
 
         <a
           href="#contact"
-          className="hero-rise mt-8 inline-flex items-center rounded-full bg-white px-8 py-4 text-[0.72rem] font-semibold uppercase tracking-nav text-black transition-transform hover:scale-[1.03] sm:text-sm"
+          className="hero-rise mt-8 inline-flex items-center rounded-full bg-white px-8 py-4 text-[0.82rem] font-semibold tracking-[0.02em] text-black transition-transform hover:scale-[1.03] sm:text-sm"
           style={{ ["--rise-delay" as string]: "640ms" }}
         >
-          Book A Private Consultation
+          Book a private consultation
         </a>
       </div>
 
@@ -65,7 +65,7 @@ export function Hero() {
         className="hero-fade absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-white/70 md:flex"
         style={{ ["--rise-delay" as string]: "900ms" }}
       >
-        <span className="text-[0.65rem] uppercase tracking-nav">Scroll</span>
+        <span className="text-[0.65rem] tracking-[0.16em]">Scroll</span>
         <span className="relative block h-10 w-px overflow-hidden bg-white/40">
           <span className="hero-scroll-dot absolute left-0 top-0 block h-3 w-px bg-white" />
         </span>

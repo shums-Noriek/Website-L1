@@ -54,7 +54,7 @@ export function Projects() {
 
                   {/* collapsed: vertical name (writing-mode, never clipped) */}
                   <span
-                    className={`absolute bottom-6 left-1/2 -translate-x-1/2 [writing-mode:vertical-rl] rotate-180 text-[clamp(0.9rem,1.05vw,1.25rem)] font-medium uppercase tracking-[0.18em] text-white transition-opacity duration-300 ${
+                    className={`absolute bottom-6 left-1/2 -translate-x-1/2 [writing-mode:vertical-rl] rotate-180 text-[clamp(0.9rem,1.05vw,1.2rem)] font-medium tracking-[0.06em] text-white transition-opacity duration-300 ${
                       on ? "opacity-0" : dimmed ? "opacity-70" : "opacity-100"
                     }`}
                   >
@@ -68,7 +68,7 @@ export function Projects() {
                     }`}
                   >
                     <p className="max-w-[36ch] text-sm leading-snug text-white/85">{projects.caption}</p>
-                    <p className="text-[clamp(1.05rem,1.4vw,1.6rem)] font-medium uppercase tracking-[0.2em] text-white">
+                    <p className="text-[clamp(1.05rem,1.4vw,1.6rem)] font-medium tracking-[0.04em] text-white">
                       {item.name}
                     </p>
                   </div>
@@ -97,7 +97,7 @@ export function Projects() {
             >
               <Image src={item.image.src} alt={item.image.alt} fill sizes="70vw" className="object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-              <figcaption className="absolute bottom-4 left-4 font-medium uppercase tracking-[0.12em] text-white">
+              <figcaption className="absolute bottom-4 left-4 font-medium tracking-[0.03em] text-white">
                 {item.name}
               </figcaption>
             </figure>
