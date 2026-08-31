@@ -146,6 +146,10 @@ export const footer = {
     "#111, 2nd Floor, 27th Main Road, near NIFT College,",
     "Sector 2, HSR Layout, Bengaluru, Karnataka 560102",
   ],
+  contact: {
+    phone: { label: "+91-7975840258", href: "tel:+917975840258" },
+    email: { label: "contact@noriek.com", href: "mailto:contact@noriek.com" },
+  },
   columns: [
     {
       title: "Company",
