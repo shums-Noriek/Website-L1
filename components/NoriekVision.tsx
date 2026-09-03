@@ -31,7 +31,7 @@ export function NoriekVision() {
 
         {/* pavilion render — sits just below the words so they stay readable;
             wipes open on entry, then a slow Ken-Burns drift */}
-        <div className="relative z-10 mx-auto mt-3 w-full max-w-[1080px] overflow-hidden md:mt-1">
+        <div className="relative z-10 mx-auto mt-3 w-full max-w-[1080px] overflow-hidden rounded-band md:mt-1">
           <div className="vision-img">
             <Image
               src={vision.image.src}

@@ -11,13 +11,13 @@ export function WhoWeAre() {
         <span className="heading">{whoWeAre.headingAfter}</span>
       </Reveal>
 
-      {/* Row 1 — copy left, image bleeding off the right */}
+      {/* Row 1 — copy left, image right */}
       <Reveal
         group
-        className="mx-auto grid max-w-shell items-center gap-10 px-[var(--shell-pad)] md:grid-cols-[1fr_1.15fr] md:gap-6 md:pr-0"
+        className="mx-auto grid max-w-shell items-center gap-10 px-[var(--shell-pad)] md:grid-cols-[1fr_1.15fr] md:gap-12"
       >
         <p className="copy-caps dropcap max-w-[46ch] md:text-[1.05rem]">{whoWeAre.bodyLead}</p>
-        <div className="relative aspect-[16/10] w-full overflow-hidden rounded-panel md:rounded-r-none">
+        <div className="relative aspect-[16/10] w-full overflow-hidden rounded-panel">
           <Image
             src={whoWeAre.images.topRight.src}
             alt={whoWeAre.images.topRight.alt}
@@ -28,12 +28,12 @@ export function WhoWeAre() {
         </div>
       </Reveal>
 
-      {/* Row 2 — image bleeding off the left, copy right */}
+      {/* Row 2 — image left, copy right */}
       <Reveal
         group
-        className="mx-auto mt-12 grid max-w-shell items-center gap-10 px-[var(--shell-pad)] md:mt-20 md:grid-cols-[1.15fr_1fr] md:gap-6 md:pl-0"
+        className="mx-auto mt-12 grid max-w-shell items-center gap-10 px-[var(--shell-pad)] md:mt-20 md:grid-cols-[1.15fr_1fr] md:gap-12"
       >
-        <div className="relative order-2 aspect-[16/10] w-full overflow-hidden rounded-panel md:order-1 md:rounded-l-none">
+        <div className="relative order-2 aspect-[16/10] w-full overflow-hidden rounded-panel md:order-1">
           <Image
             src={whoWeAre.images.bottomLeft.src}
             alt={whoWeAre.images.bottomLeft.alt}
