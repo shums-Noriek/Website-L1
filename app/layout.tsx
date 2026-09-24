@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import PostHogInit from "./PostHogInit";
 
 /** One typeface across the whole site. */
 const sans = Inter({
@@ -26,7 +27,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={sans.variable}>
-      <body>{children}</body>
+      <body>
+        <PostHogInit />
+        {children}
+      </body>
     </html>
   );
 }
