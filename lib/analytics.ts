@@ -10,16 +10,25 @@
 import posthog from "posthog-js";
 
 const KEY = process.env.NEXT_PUBLIC_POSTHOG_KEY;
-const HOST = process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://eu.posthog.com";
+// The dashboard host, for links PostHog builds back to itself. Events don't
+// go here — they go through this site's own /ingest proxy (next.config.js).
+const UI_HOST = process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://eu.posthog.com";
 
 let initialized = false;
 
 export function initAnalytics() {
   if (initialized || !KEY || typeof window === "undefined") return;
   posthog.init(KEY, {
-    api_host: HOST,
+    api_host: "/ingest",
+    ui_host: UI_HOST,
     autocapture: false,
     disable_session_recording: true,
+    // Heatmaps and dead-click capture are switched on from the PostHog
+    // dashboard, not here, so they'd arrive uninvited unless refused
+    // explicitly — dead clicks carry the clicked element's text, which on
+    // the enquiry form is a visitor's own details.
+    capture_heatmaps: false,
+    capture_dead_clicks: false,
     // Off, deliberately — posthog-js's own pageview autocapture misses
     // Next.js App Router client-side navigation. PostHogInit calls
     // capturePageview() itself off usePathname() for every route.
