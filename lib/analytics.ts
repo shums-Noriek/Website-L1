@@ -47,8 +47,11 @@ export function track(event: string, properties?: Record<string, string | number
 }
 
 // Called by PostHogInit on every route change (capture_pageview is off in
-// init() — see there for why).
+// init() — see there for why). Origin + path, no query string, and
+// absolute: PostHog parses $current_url as a URL when it works out scroll
+// depth, and a bare path fails that parse — every such pageview was logged
+// as an "invalid heatmap data" ingestion warning.
 export function capturePageview(pathname: string) {
   if (!initialized) return;
-  posthog.capture("$pageview", { $current_url: pathname });
+  posthog.capture("$pageview", { $current_url: `${window.location.origin}${pathname}` });
 }
